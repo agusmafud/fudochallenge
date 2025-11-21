@@ -21,11 +21,11 @@ const nestedCommentCss = {
     marginLeft: '20px',
     paddingTop: '12px',
   }),
-  commentContainer: css({
+  commentContainer: (hasChildren: boolean) => css({
     marginLeft: '16px',
     paddingLeft: '24px',
     paddingBottom: '24px',
-    borderLeft: '1px solid grey',
+    ...(hasChildren && { borderLeft: '1px solid grey'}),
   }),
   childContainer: (isLastChild: boolean) => css({
     marginLeft: '16px',

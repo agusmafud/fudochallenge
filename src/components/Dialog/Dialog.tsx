@@ -10,11 +10,12 @@ import ClickAwayOverlay from './ClickAwayOverlay';
 type DialogProps = {
   trigger: ReactNode,
   title: string,
-  children: string,
+  children: ReactNode,
   cancelText?: string,
-  confirmText: string,
+  confirmText?: string,
   isAlert?: boolean,
   onConfirm: () => void,
+  width?: number,
 };
 
 const Dialog = ({ 
@@ -22,9 +23,10 @@ const Dialog = ({
   title,
   children,
   cancelText = 'Cancelar',
-  confirmText,
+  confirmText = 'Confirmar',
   isAlert = false,
   onConfirm,
+  width = 400,
 }: DialogProps) => {
   return (
     <DialogTrigger>
@@ -36,7 +38,7 @@ const Dialog = ({
             css={dialogCss.dialogCentered} 
           >
             <ReactAriaDialog 
-              css={dialogCss.dialogBox} 
+              css={dialogCss.dialogBox(width)} 
               onClick={e => e.stopPropagation()}
               role={isAlert ? 'alertdialog' : 'dialog'}
             >

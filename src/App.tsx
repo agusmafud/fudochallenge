@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router';
 
+import NewPostContainer from './containers/NewPostContainer.tsx';
 import PostContainer from './containers/PostContainer.tsx';
 import PostsListContainer from './containers/PostsListContainer.tsx';
 import Layout from './components/Layout.tsx';
@@ -8,9 +9,10 @@ import Toast from './components/Toast/Toast.tsx';
 
 const App = () => {
   return (
-    <Layout appBar={<AppBar />}>
+    <Layout
+      appBar={<AppBar children={<NewPostContainer />} />}
+    >
       <Routes>
-        <Route path="posts/new" element={<div>posts/new</div>} />
         <Route path="posts/:postId" element={<PostContainer />} />
         <Route path="/" element={<PostsListContainer />} />
       </Routes>

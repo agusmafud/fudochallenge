@@ -29,7 +29,6 @@ const PostsListContainer = () => {
   });
 
   const {
-    //createNewPost,
     //editPost,
     deletePost,
   } = useUpdatePost();

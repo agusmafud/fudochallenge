@@ -3,7 +3,7 @@ import { Squirrel } from 'lucide-react';
 
 const endIndicatorCss = {
   container: css({
-    width: '90vw',
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

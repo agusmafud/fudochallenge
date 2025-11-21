@@ -50,7 +50,6 @@ const Post = ({
         rightNode={
           <ActionMenu
             menuItems={[
-              { text: 'Edit', onAction: () => alert('Edit') },
               { text: 'Delete', onAction: () => deletePost(id) },
             ]}
             dataName='data-menu-button'

@@ -1,72 +1,55 @@
 import { useState } from 'react';
-import { TextField, TextArea, Label } from 'react-aria-components';
 
-import Button from '../Button/Button';
-import Dialog from '../Dialog/Dialog';
+import EditActionButtons from '../EditActionButtons/EditActionButtons';
+import TextField from '../TextArea/TextArea';
 import type { Comment as TComment } from '../../types';
 
-import newCommentCss from './styles';
 
 type NewCommentProps = {
   onCreate: (comment: Partial<TComment>) => void,
   parentId: string | null,
+  onCancel?: () => void,
 };
 
 const NewComment = ({ 
   onCreate,
   parentId,
+  onCancel,
 }: NewCommentProps) => {
   const [commentText, setCommentText] = useState('');
   const handleOnCreate = () => {
-    onCreate({
+    const newComment = {
       content: commentText,
       parentId,
-    });
+    };
+    onCreate(newComment);
     setCommentText('');
   }
   const handleOnDelete = () => {
     setCommentText('');
+    if (onCancel) onCancel();
   }
 
-  const areButtonsDisabled = commentText === '';
+  const isCreateDisabled = commentText === '';
+  const isDeleteDisabled = onCancel
+    ? false
+    : commentText === '';
 
   return (
-    <TextField css={newCommentCss.textField}>
-      <Label css={newCommentCss.visuallyHidden}>Nuevo comentario</Label>
-      <TextArea
-        css={newCommentCss.textArea}
-        value={commentText}
-        onChange={(event) => setCommentText(event.target.value)}
-        aria-label='Nuevo Comentario'
+    <TextField
+      label='Nuevo Comentario'
+      value={commentText}
+      onChange={(value) => setCommentText(value)}
+    >
+      <EditActionButtons
+        handleOnCreate={handleOnCreate}
+        handleOnDelete={handleOnDelete}
+        isCreateDisabled={isCreateDisabled}
+        isDeleteDisabled={isDeleteDisabled}
+        cancelTitle='¿Descartar comentario?'
+        cancelMessage='Tienes un comentario en curso, ¿estás seguro de que quieres descartarlo?'
+        createText='Comentar'
       />
-      <div css={newCommentCss.buttonRow}>
-        <Dialog
-          isAlert
-          title='¿Descartar comentario?'
-          cancelText='Cancelar'
-          confirmText='Descartar'
-          onConfirm={handleOnDelete}
-          trigger={(
-            <Button
-              isDisabled={areButtonsDisabled}
-              variant='secondary'
-              ariaLabel='Cancelar comentario'
-            >
-              Cancelar
-            </Button>
-          )}
-        >
-          Tienes un comentario en curso, ¿estás seguro de que quieres descartarlo?
-        </Dialog>
-        <Button
-          isDisabled={areButtonsDisabled}
-          variant='primary'
-          ariaLabel='Crear comentario'
-          onClick={handleOnCreate}
-        >
-          Comentar
-        </Button>
-      </div>
     </TextField>
   );
 };

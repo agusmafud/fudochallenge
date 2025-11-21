@@ -22,7 +22,6 @@ const NestedComment = (props: NestedCommentProps) => {
   const { 
     nestedComment,
     createNewComment,
-    // editComment,
     deleteComment,
   } = props;
   
@@ -36,18 +35,13 @@ const NestedComment = (props: NestedCommentProps) => {
   } = nestedComment;
 
   const hasChildren = children.length > 0;
-  /* const handleEditComment = (comment: Partial<TComment>) => (
-    editComment({
-      id,
-      ...comment,
-    })
-  ); */
-  const handleCreateResponse = (comment: Partial<TComment>) => (
+  const handleCreateResponse = (comment: Partial<TComment>) => {
     createNewComment({
       ...comment,
       parentId: id,
-    })
-  );
+    });
+    setShowResponse(false);
+  };
   
 
   return (
@@ -65,8 +59,7 @@ const NestedComment = (props: NestedCommentProps) => {
         rightNode={
           <ActionMenu
             menuItems={[
-              // { text: 'Editar', onAction: () => alert('Edit') },
-              { text: 'Comentar', onAction: () => setShowResponse(true) },
+              { text: 'Responder', onAction: () => setShowResponse(true) },
               { text: 'Borrar', onAction: () => deleteComment(id) },
             ]}
             dataName='data-menu-button'
@@ -79,10 +72,11 @@ const NestedComment = (props: NestedCommentProps) => {
             <div css={nestedCommentCss.contentText}>{content}</div>
           </div>
           {showResponse && (
-            <div css={nestedCommentCss.commentContainer}>
+            <div css={nestedCommentCss.commentContainer(hasChildren)}>
               <NewComment
                 onCreate={handleCreateResponse}
                 parentId={id}
+                onCancel={() => setShowResponse(false)}
               />
             </div>
           )}
@@ -94,7 +88,7 @@ const NestedComment = (props: NestedCommentProps) => {
                 <div css={nestedCommentCss.connectorWrapper(isLastChild)}>
                   <div css={nestedCommentCss.connector} />
                 </div>
-                <NestedComment {...props} />
+                <NestedComment {...props} nestedComment={childrenNestedComment} />
               </div>
             )})}
         </div>

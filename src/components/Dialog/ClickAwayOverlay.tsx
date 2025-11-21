@@ -5,12 +5,12 @@ import { ModalOverlay, OverlayTriggerStateContext } from 'react-aria-components'
 
 const clickAwayOverlayCss = {
   modalOverlay: css({
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100svh',
-    zIndex: 10,
+    width: '100vw',
+    height: '100vh',
+    zIndex: 9999,
     background: 'rgba(0,0,0,0.25)',
     backdropFilter: 'blur(4px)',
     WebkitBackdropFilter: 'blur(4px)',

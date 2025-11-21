@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 
 const loadingCss = {
   container: (isBig: boolean) => css({
-    width: '90vw',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

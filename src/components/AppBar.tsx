@@ -1,7 +1,7 @@
+import type { ReactNode } from 'react';
 import { css } from '@emotion/react';
-import { MessageSquarePlus, Squirrel } from 'lucide-react';
-
-import Button from './Button/Button';
+import { Link } from 'react-router';
+import { Squirrel } from 'lucide-react';
 
 const appCss = {
   appBar: css({
@@ -13,8 +13,8 @@ const appCss = {
     borderBottom: '1px solid rgb(128, 128, 128)',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
     padding: '0 8px',
+    zIndex: 100,
   }),
   spacer: css({
     flexGrow: 1,
@@ -27,22 +27,23 @@ const appCss = {
     fontSize: '24px',
     fontWeight: 600,
   }),
+  link: css({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    textDecoration: 'none',
+    color: 'inherit',
+  }),
 };
 
-const AppBar = () => (
+const AppBar = ({ children }: { children: ReactNode }) => (
   <div css={appCss.appBar}>
-    <Squirrel css={appCss.icon} />
-    <div css={appCss.brand}>rodent</div>
+    <Link to='/' css={appCss.link}>
+      <Squirrel css={appCss.icon} />
+      <div css={appCss.brand}>rodent</div>
+    </Link>
     <div css={appCss.spacer} />
-    <div>
-      <Button
-        variant='ghost'
-        ariaLabel='Crear Post'
-      >
-        <MessageSquarePlus />
-        Crear
-      </Button>
-    </div>
+    {children}
   </div>
 );
 

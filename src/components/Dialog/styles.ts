@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
 const alertDialogCss = {
-  dialogBox: css({
-    maxWidth: '460px',
+  dialogBox: (width: number) => css({
+    width: `${width}px`,
     maxHeight: '100%',
     overflow: 'hidden',
     borderRadius: '16px',

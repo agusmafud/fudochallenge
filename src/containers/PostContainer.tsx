@@ -13,6 +13,20 @@ import useNestedComments from '../hooks/useNestedComments';
 import useUpdatePost from '../hooks/useUpdatePost';
 import type { Post as TPost } from '../types';
 
+const styles = {
+  container: css({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '36px',
+    marginTop: '12px',
+  }),
+  commentsContainer: css({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+  }),
+};
+
 const PostContainer = () => {
   const { postId = '' } = useParams();
   const navigate = useNavigate();
@@ -42,25 +56,9 @@ const PostContainer = () => {
   } = useComment(postId);
 
   const {
-    // createNewPost,
-    // editPost,
     deletePost,
   } = useUpdatePost();
   
-  const styles = {
-    container: css({
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '36px',
-      marginTop: '12px',
-    }),
-    commentsContainer: css({
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '24px',
-    }),
-  };
-
   if (postIsPending) return <Loading isBig />;
 
   if (postIsError && postError?.message) {

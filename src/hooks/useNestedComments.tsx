@@ -22,12 +22,16 @@ const useNestedComments = (postId: string) => {
   const nestedComments = useMemo<NestedComment[]>(() => {
     if (!comments) return [];
 
+
     const lookup: Record<string, NestedComment> = {};
     const newComments = comments.reduce<NestedComment[]>((acc, comment) => {
       const node = { ...comment, children: [] };
       lookup[comment.id] = node;
-      if (comment.parentId !== null && lookup[comment.parentId]) {
-        lookup[comment.parentId].children.push(node);
+
+      if (comment.parentId !== null) {
+        if (lookup[comment.parentId]) {
+          lookup[comment.parentId].children.push(node);
+        }
       } else {
         acc.push(node);
       }
